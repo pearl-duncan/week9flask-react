@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Post from './Post';
+import Post from './Post'
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
 export default class Feed extends Component {
     constructor(){
@@ -12,13 +12,14 @@ export default class Feed extends Component {
     };
 
     getPosts = async () => {
-        const url = BACKEND_URL + '/api/posts'
-        const res = await fetch(url)
+        const url = BACKEND_URL + "/api/posts"
+        const res = await fetch(url);
         const data = await res.json();
         console.log(data);
         if (data.status === 'ok'){
             this.setState({posts: data.posts})
         }
+       
     };
 
     showPosts = () => {
@@ -28,7 +29,7 @@ export default class Feed extends Component {
         else {
             return this.state.posts.map(p => <Post key={p.id} postInfo={p}/>)
         }
-    }
+    };
 
     componentDidMount(){
         this.getPosts()

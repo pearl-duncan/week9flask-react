@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const SignUp = () => {
+    const navigate = useNavigate()
 
     const createUser = async (username, email, password) => {
         const url = BACKEND_URL + '/api/user/create';
@@ -21,6 +23,9 @@ const SignUp = () => {
         const data = await res.json();
         console.log(data)
         if (data.status === 'ok'){
+            navigate("/login")
+            
+
             // show success message
             // redirect to login page
         }

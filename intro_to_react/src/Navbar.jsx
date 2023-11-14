@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 class Navbar extends Component {
+  constructor(){
+    super();
+    this.state = {}
+  }
 
+  componentDidMount(){
+    console.log('navbar is mounting')
+  }
   render() {
     console.log('navbar is rendering')
     return (
@@ -23,6 +29,9 @@ class Navbar extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/posts">Posts</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/to-do">To Do</Link>
               </li>
               {
                 this.props.user?.token

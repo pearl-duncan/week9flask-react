@@ -1,4 +1,4 @@
-//rcf react component function
+//rfc react functional component 
 //rcc react class component
 //extends = inheriets 
 
@@ -12,8 +12,9 @@ import Home from './Home';
 import Login from './Login';
 import News from './News';
 import Feed from './Feed';
-import SinglePost from './Post';
-import SignUp from './Signup';
+import Signup from './Signup';
+import SinglePost from './SinglePost';
+import ToDo from './ToDo';
 
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ constructor() {
   this.state = {
     user: null,
     count: 0,
+    toDo: []
   }
   console.log('i am constructing')
 }
@@ -38,6 +40,12 @@ logMeIn = (e) => {
   this.setState({user: username})
 }
 
+addToDo = (e) => {
+  e.preventDefault();
+  const inputToDo = e.target.toDo.value;
+  this.setState({toDo: inputToDo})
+};
+
 componentDidMount(){
   console.log('i have just mounted')
 }
@@ -50,11 +58,13 @@ componentDidMount(){
 
         <Routes>
           <Route path='/' element={<Home count={this.state.count} addToCount={this.addToCount} />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/user/login' element={<Login user={this.state.user} />} />
           <Route path='/news' element={<News />} />
           <Route path='/posts' element={<Feed/>} />
           <Route path='/posts/:postId' element={<SinglePost />}/>
-          <Route path='/signup' element={<SignUp />}/>
+          <Route path='/user/create' element={<Signup />}/>
+          <Route path='/to-do' element={<ToDo todo={this.state.toDo} />}/>
+
         </Routes>
         <Footer />
       </div>

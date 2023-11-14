@@ -1,25 +1,40 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Login = (props) => {
+    const navigate = useNavigate()
+
 
     const checkCredentials = async (username, password) => {
         const url = BACKEND_URL + '/api/user/login';
         const options = {
             method: "POST",
             headers: {
-                Authorization: `Basic ${btoa(username+":"+password)}`
+                'content-type': 'application/json',
             },
-        };
+            body: JSON.stringify ({
+                username: username,
+                password: password
+            })
+        }
+        //const options = {
+          //  method: "POST",
+        //     headers: {
+        //         Authorization: `Basic ${btoa(username+":"+password)}`
+        //     },
+        // };
         const res = await fetch(url, options);
         const data = await res.json();
         console.log(data)
         if (data.status === 'ok'){
+            props.logMeIn(data.user)
+            navigate("/")
             // show success message
             // redirect to login page
             // store user to state
-            props.logMeIn(data.user)
+            
         }
     };
 
